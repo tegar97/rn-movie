@@ -10,6 +10,7 @@ import {
   Animated,
   ScrollView,
 } from "react-native";
+import Profiles from "../components/Profile";
 import { dummyData, COLORS, SIZES, FONTS, icons, images } from "./../constants";
 
 const Home = ({ navigation }) => {
@@ -163,6 +164,7 @@ const Home = ({ navigation }) => {
                         <Text style={{ color: COLORS.white, ...FONTS.H4 }}>
                           Still Watching
                         </Text>
+                        <Profiles profiles={item.stillWatching} />
                       </View>
                     )}
                   </View>
