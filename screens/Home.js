@@ -224,6 +224,28 @@ const Home = ({ navigation }) => {
       </View>
     );
   }
+
+  function renderContinueWatchingSection() {
+    return (
+      <View style={{ marginTop: SIZES.padding }}>
+        <View
+          style={{
+            flexDirection: "row",
+            paddingHorizontal: SIZES.padding,
+            alignItems: "center",
+          }}
+        >
+          <Text style={{ flex: 1, color: COLORS.white, ...FONTS.h2 }}>
+            Continue Watching
+          </Text>
+          <Image
+            source={icons.right_arrow}
+            style={{ width: 20, height: 20, tintColor: COLORS.primary }}
+          />
+        </View>
+      </View>
+    );
+  }
   return (
     <SafeAreaView
       style={{
@@ -240,6 +262,7 @@ const Home = ({ navigation }) => {
       >
         {renderNewSection()}
         {renderDots()}
+        {renderContinueWatchingSection()}
       </ScrollView>
     </SafeAreaView>
   );
