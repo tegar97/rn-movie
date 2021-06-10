@@ -255,7 +255,9 @@ const Home = ({ navigation }) => {
             return (
               <TouchableWithoutFeedback
                 onPress={() =>
-                  navigation.navigate("movieDetail", { selectedMovie: item })
+                  navigation.navigate("MovieDetail", {
+                    selectedMovie: item,
+                  })
                 }
               >
                 <View
