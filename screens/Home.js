@@ -9,10 +9,11 @@ import {
   ImageBackground,
   Animated,
   ScrollView,
+  FlatList,
 } from "react-native";
 import Profiles from "../components/Profile";
 import { dummyData, COLORS, SIZES, FONTS, icons, images } from "./../constants";
-
+import ProgressBar from "../components/progressBar";
 const Home = ({ navigation }) => {
   const newSeasonScrollX = React.useRef(new Animated.Value(0)).current;
   function renderHeader() {
@@ -243,6 +244,58 @@ const Home = ({ navigation }) => {
             style={{ width: 20, height: 20, tintColor: COLORS.primary }}
           />
         </View>
+
+        <FlatList
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          contentContainerStyle={{ marginTop: SIZES.padding }}
+          data={dummyData.continueWatching}
+          keyExtractor={(item) => `${item.id}`}
+          renderItem={({ item, index }) => {
+            return (
+              <TouchableWithoutFeedback
+                onPress={() =>
+                  navigation.navigate("movieDetail", { selectedMovie: item })
+                }
+              >
+                <View
+                  style={{
+                    marginLeft: index == 0 ? SIZES.padding : 20,
+                    marginRight:
+                      index == dummyData.continueWatching.length - 1
+                        ? SIZES.padding
+                        : 0,
+                  }}
+                >
+                  <Image
+                    source={item.thumbnail}
+                    resizeMode="cover"
+                    style={{
+                      width: SIZES.width / 3,
+                      height: SIZES.width / 3 + 60,
+                      borderRadius: 20,
+                    }}
+                  />
+
+                  <Text
+                    style={{
+                      marginTop: SIZES.base,
+                      color: COLORS.white,
+                      ...FONTS.H4,
+                    }}
+                  >
+                    {item.name}
+                  </Text>
+                  <ProgressBar
+                    container={{ marginTop: SIZES.radius }}
+                    barStyle={{ height: 3 }}
+                    barPercentege={item.overallProgress}
+                  />
+                </View>
+              </TouchableWithoutFeedback>
+            );
+          }}
+        />
       </View>
     );
   }
