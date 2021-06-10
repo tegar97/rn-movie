@@ -176,6 +176,54 @@ const Home = ({ navigation }) => {
       />
     );
   }
+
+  function renderDots() {
+    const dotPostion = Animated.divide(newSeasonScrollX, SIZES.width);
+    return (
+      <View
+        style={{
+          marginTop: SIZES.padding,
+          flexDirection: "row",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        {dummyData.newSeason.map((item, index) => {
+          const opacity = dotPostion.interpolate({
+            inputRange: [index - 1, index, index + 1],
+            outputRange: [0.3, 1, 0.3],
+            extrapolate: "clamp",
+          });
+
+          const dotWidth = dotPostion.interpolate({
+            inputRange: [index - 1, index, index + 1],
+            outputRange: [6, 20, 6],
+            extrapolate: "clamp",
+          });
+
+          const dotColor = dotPostion.interpolate({
+            inputRange: [index - 1, index, index + 1],
+            outputRange: [COLORS.lightGray, COLORS.primary, COLORS.lightGray],
+            extrapolate: "clamp",
+          });
+
+          return (
+            <Animated.View
+              key={`dot-${index}`}
+              opacity={opacity}
+              style={{
+                borderRadius: SIZES.radius,
+                marginHorizontal: 3,
+                width: dotWidth,
+                height: 6,
+                backgroundColor: dotColor,
+              }}
+            ></Animated.View>
+          );
+        })}
+      </View>
+    );
+  }
   return (
     <SafeAreaView
       style={{
@@ -191,6 +239,7 @@ const Home = ({ navigation }) => {
         }}
       >
         {renderNewSection()}
+        {renderDots()}
       </ScrollView>
     </SafeAreaView>
   );
